@@ -1,5 +1,6 @@
 package com.sergifi.estore.ProductsService.rest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,6 +11,7 @@ public class ProductsController {
     // Use this environment object to access port number.
     private final Environment env;
 
+    @Autowired
     public ProductsController(Environment env) {
         this.env = env;
     }
@@ -21,9 +23,7 @@ public class ProductsController {
 
     @GetMapping
     public String getProduct() {
-
-        final String portNumber = env.getProperty("local.server.port");
-        return String.format("HTTP GET Handled on port :{}", portNumber);
+         return "HTTP GET Handled on port :{ "+ env.getProperty("local.server.port")+" }";
     }
 
     @PutMapping
@@ -35,4 +35,5 @@ public class ProductsController {
     public String deleteProduct() {
         return "HTTP DELETE Handled";
     }
+
 }
