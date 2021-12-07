@@ -1,10 +1,18 @@
 package com.sergifi.estore.ProductsService.rest;
 
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/products")
 public class ProductsController {
+
+    // Use this environment object to access port number.
+    private final Environment env;
+
+    public ProductsController(Environment env) {
+        this.env = env;
+    }
 
     @PostMapping
     public String createProduct() {
@@ -13,7 +21,9 @@ public class ProductsController {
 
     @GetMapping
     public String getProduct() {
-        return "HTTP GET Handled";
+
+        final String portNumber = env.getProperty("local.server.port");
+        return String.format("HTTP GET Handled on port :{}", portNumber);
     }
 
     @PutMapping
